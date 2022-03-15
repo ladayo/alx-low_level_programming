@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include "main.h"
+#include <stdlib.h>
 
 /**
 * print_last_digit - ouputs the positive
@@ -14,8 +15,8 @@ int print_last_digit(int i)
 	int d;
 	char ch;
 
-	d = i % 10;
+	d = (abs(i)) % 10;
 	ch = '0' + d;
 	_putchar(ch);
-	return (ch);
+	return (d);
 }
