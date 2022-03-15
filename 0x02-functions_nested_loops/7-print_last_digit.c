@@ -15,7 +15,7 @@ int print_last_digit(int i)
 	int d;
 	char ch;
 
-	d = (abs(i)) % 10;
+	d = (labs(i)) % 10;
 	ch = '0' + d;
 	_putchar(ch);
 	return (d);
