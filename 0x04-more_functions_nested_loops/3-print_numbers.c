@@ -12,10 +12,10 @@
 
 void print_numbers(void)
 {
-	int d;
+	int i;
 
-	for (d = 48; d <= 57; d++)
+	for (i = 0; i <= 9; i++)
 	{
-		_putchar(d);
+		_putchar(i + '0');
 	}
 	_putchar('\n');
