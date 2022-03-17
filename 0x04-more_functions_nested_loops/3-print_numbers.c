@@ -13,12 +13,10 @@
 void print_numbers(void)
 {
 	int d;
-	char ch;
 
-	for (d = 0; d < 10; d++)
+	for (d = 48; d < 57; d++)
 	{
-		ch = d + '0';
-		_putchar(ch);
+		_putchar(d);
 	
 	}
 	_putchar('\n');
