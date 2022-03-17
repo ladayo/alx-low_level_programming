@@ -12,8 +12,10 @@
 void print_numbers(void)
 {
 	int d;
+	char ch;
 
 	for (d = 0; d < 10; d++)
 	{
-		_putchar(d + '0');
+		ch = d + '0';
+		_putchar(ch);
 	}
