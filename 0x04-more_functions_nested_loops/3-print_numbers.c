@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include "main.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
 * print_numbers - ouputs 0 - 9
@@ -18,4 +19,6 @@ void print_numbers(void)
 	{
 		ch = d + '0';
 		_putchar(ch);
+	
 	}
+	_putchar('\n');
