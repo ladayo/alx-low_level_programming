@@ -9,16 +9,14 @@
 
 int main(void)
 {
-	long int n;
-	long int i;
-	long int k = 612852475143;
+	int c;
+	long int num = 612852475143;
 
-	for (n = 612852475143; n > 0; n--)
+	for (c = sqrt(num); c > 3; c++)
 	{
-		i = n;
-		if (k % i == 0)
+		if (num % c == 0)
 		{
-			printf("%d\n", i);
+			printf("%d\n", c);
 			break;
 		}
 	}
