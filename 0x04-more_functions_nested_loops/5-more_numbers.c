@@ -9,24 +9,35 @@
 *
 */
 
-void more_numbers(void);
+void more_numbers(void)
 {
-	int i = 0;
-	int j = 0;
+	int i;
+	int j;
+	int k;
+	int l;
 
-	while (i <= 9)
+	i = 0;
+	l = 0;
+	while (i < 10)
 	{
-		while (j <= 14)
+		while (l <= 14)
 		{
-			if (j > 9)
+			if (l < 10)
 			{
-				_putchar(j / 10 + '0');
+				k = l;
 			}
-			_putchar(j % 10 + '0');
-			j++;
+			else
+			{
+				j = l / 10;
+				k = l % 10;
+				_putchar (j + '0');
+			}
+			_putchar (k + '0');
+
+			l++;
 		}
-		_putchar(10);
 		i++;
+		l = 0;
+		_putchar ('\n');
 	}
 }
-
