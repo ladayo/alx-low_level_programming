@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 /**
-* more numbers - ouputs the positive
+* more_numbers - ouputs the positive
 *
 * Return: Always 0 (Success)
 *
