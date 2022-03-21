@@ -28,10 +28,9 @@ void puts_half(char *str)
 	else
 	{
 		odd = (strlen(str) - 1) / 2;
-		for (i = odd; i <= len; i++)
+		for (i = odd - 1; i <= len; i++)
 		{
 			putchar(str[i]);
 		}
 	}
-	putchar('\n');
 }
