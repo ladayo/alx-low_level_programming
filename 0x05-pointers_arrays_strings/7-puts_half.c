@@ -20,7 +20,7 @@ void puts_half(char *str)
 	if (len % 2 == 0)
 	{
 		even = strlen(str) / 2;
-		for (i = even; i <= len; i++)
+		for (i = even; i <= len + 1; i++)
 		{
 			putchar(str[i]);
 		}
@@ -28,7 +28,7 @@ void puts_half(char *str)
 	else
 	{
 		odd = (strlen(str) - 1) / 2;
-		for (i = odd + 1; i <= len; i++)
+		for (i = odd + 1; i <= len + 1; i++)
 		{
 			putchar(str[i]);
 		}
