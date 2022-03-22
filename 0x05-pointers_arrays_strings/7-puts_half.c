@@ -24,6 +24,7 @@ void puts_half(char *str)
 		{
 			putchar(str[i]);
 		}
+		putchar('\n');
 	}
 	else if (len % 2 != 0)
 	{
@@ -32,5 +33,6 @@ void puts_half(char *str)
 		{
 			putchar(str[i]);
 		}
+		putchar('\n');
 	}
 }
