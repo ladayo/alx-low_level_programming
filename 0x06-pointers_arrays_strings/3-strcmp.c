@@ -10,20 +10,30 @@
  */
 int _strcmp(char *s1, char *s2)
 {
-	int i, status;
+	int i, status, s1_len, s2_len, big_len, true_status;
 
-	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
+	s1_len = strlen(s1);
+	s2_len = strlen(s2);
+	if (s1_len >= s2_len)
 	{
-		if (s1[i] != s2[i])
+		big_len = s1_len;
+	}
+	else
+	{
+		big_len = s2_len;
+	}
+	for (i = 0; i < big_len; i++)
+	{
+		status = s1[i] - s2[i];
+		if (status != 0)
 		{
-			status = s1[i] - s2[i];
+			true_status = status;
 			break;
 		}
 		else
 		{
-			return (0);
+			true_status = status;
 		}
 	}
-	return (status);
+	return (true_status);
 }
