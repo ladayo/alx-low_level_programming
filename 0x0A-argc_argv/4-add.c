@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
 				total += num;
 			else
 			{
+				/* printf("%s\n", p);*/
 				printf("Error\n");
 				return (1);
 			}
