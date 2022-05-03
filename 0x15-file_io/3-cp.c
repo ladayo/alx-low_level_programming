@@ -10,31 +10,27 @@
 
 int main(int argc, char *argv[])
 {
-	int rd, rd_arg1, wr, c_rd, c_wr;
+	int rd, rd_arg1 = 1024;
+	int wr, c_rd, c_wr;
 	char *file_content;
 
 	if (argc != 3)
-	{
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-		exit(97);
-	}
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n"), exit(97);
 	rd = open(argv[1], O_RDONLY);
 	if (rd == -1 || argv[1] == NULL)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s", argv[1]);
-		exit(98);
-	}
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s", argv[1]), exit(98);
 	wr = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 0664);
 	file_content =  malloc(sizeof(char) * 1024);
 	if (!file_content)
 		return (-1);
-	while ((rd_arg1 = read(rd, file_content, 1024)))
-		write(wr, file_content, rd_arg1);
-	if (wr == -1)
+	while (rd_arg1 > 0)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		close(rd);
-		exit(99);
+		rd_arg1 = read(rd, file_content, 1024);
+		if (rd == -1)
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s", argv[1]), exit(98);
+		write(wr, file_content, rd_arg1);
+		if (wr == -1)
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]), exit(99);
 	}
 	c_rd = close(rd);
 	c_wr = close(wr);
@@ -48,5 +44,6 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d", wr);
 		exit(100);
 	}
+	free(file_content);
 	return (0);
 }
