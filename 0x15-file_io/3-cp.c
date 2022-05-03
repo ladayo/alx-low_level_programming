@@ -11,7 +11,7 @@
 int main(int argc, char *argv[])
 {
 	int rd, rd_arg1, wr, c_rd, c_wr;
-	char file_content[1024];
+	char *file_content;
 
 	if (argc != 3)
 	{
@@ -25,6 +25,9 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 	wr = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 0664);
+	file_content =  malloc(sizeof(char) * 1024);
+	if (!file_content)
+		return (-1);
 	while ((rd_arg1 = read(rd, file_content, 1024)))
 		write(wr, file_content, rd_arg1);
 	if (wr == -1)
