@@ -33,7 +33,8 @@ void error_check(int fdrd, int fdwr, char **argv)
 
 int main(int argc, char **argv)
 {
-	int rd, wr, num_rd, num_wr, c_rd, c_wr;
+	int rd, wr,  num_wr, c_rd, c_wr;
+	int num_rd = 1024;
 	char *file_content;
 
 	if (argc != 3)
@@ -44,7 +45,7 @@ int main(int argc, char **argv)
 	file_content =  malloc(sizeof(char) * 1024);
 	if (!file_content)
 		return (-1);
-	while (sizeof(file_content) > 0)
+	while (num_rd > 0)
 	{
 		num_rd = read(rd, file_content, 1024);
 		if (num_rd == -1)
