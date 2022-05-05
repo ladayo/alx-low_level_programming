@@ -35,16 +35,13 @@ int main(int argc, char **argv)
 {
 	int rd, wr,  num_wr, c_rd, c_wr;
 	int num_rd = 1024;
-	char *file_content;
+	char file_content[1024];
 
 	if (argc != 3)
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n"), exit(97);
 	rd = open(argv[1], O_RDONLY);
 	wr = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 0664);
 	error_check(rd, wr, argv);
-	file_content =  malloc(sizeof(char) * 1024);
-	if (!file_content)
-		return (-1);
 	while (num_rd > 0)
 	{
 		num_rd = read(rd, file_content, 1024);
@@ -66,6 +63,5 @@ int main(int argc, char **argv)
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d", wr);
 		exit(100);
 	}
-	free(file_content);
 	return (0);
 }
