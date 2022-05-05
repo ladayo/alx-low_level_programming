@@ -1,67 +1,68 @@
 #include "main.h"
-
 /**
- * error_check - check for reading and writing errors
- * @fdrd: integer returned from read
- * @fdwr: integer returned form writing
- * @argv: pointer arguments to elements entered in terminal
- *
- * Return: void
+ * error_check - checks for errors
+ * @fdfr: integer returned from read
+ * @fdto: integer returned from write
+ * @av: argument element
  */
-
-void error_check(int fdrd, int fdwr, char **argv)
+void error_check(int fdfr, int fdto, char **av)
 {
-	if (fdrd == -1)
+	/* check if the file was read */
+	if (fdfr == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: can't read from file %s\n", argv[1]);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]);
 		exit(98);
 	}
-	if (fdwr == -1)
+	/* check if file was written */
+	if (fdto == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: can't write from file %s\n", argv[2]);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]);
 		exit(99);
 	}
 }
-
 /**
- * main - copies the content of a file to another file
- * @argc: number of argument varibles
- * @argv: pointer to argument variables
- *
- * Return: 0 on success
+ * main - Entry point
+ * @ac: arguments
+ * @av: arguments elements
+ * Return: Always 0.
  */
-
-int main(int argc, char **argv)
+int main(int ac, char **av)
 {
-	int rd, wr,  num_wr, c_rd, c_wr;
-	int num_rd = 1024;
-	char file_content[1024];
-
-	if (argc != 3)
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n"), exit(97);
-	rd = open(argv[1], O_RDONLY);
-	wr = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 0664);
-	error_check(rd, wr, argv);
-	while (num_rd > 0)
+	/* Declare variables */
+	int numread = 1024, numwrit, fdfr, fdto, clfr, clto;
+	char buf[1024];
+	/* check if arguments are correct */
+	if (ac != 3)
 	{
-		num_rd = read(rd, file_content, 1024);
-		if (num_rd == -1)
-			error_check(-1, 0, argv);
-		num_wr = write(wr, file_content, num_rd);
-		if (num_wr == -1)
-			error_check(0, -1, argv);
+		dprintf(2, "Usage: cp file_from file_to\n");
+		exit(97);
 	}
-	c_rd = close(rd);
-	c_wr = close(wr);
-	if (c_rd == -1)
+	/* open and read the file */
+	fdfr = open(av[1], O_RDONLY);
+	/* open and wrtie to file_to */
+	fdto = open(av[2], O_WRONLY | O_TRUNC | O_CREAT, 0664);
+	/* check for error */
+	error_check(fdfr, fdto, av);
+	while (numread > 0)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d", rd);
-		exit(100);
+		/* read and give the number of char read */
+		numread = read(fdfr, buf, 1024);
+		/* check for error */
+		if (numread == -1)
+			error_check(-1, 0, av);
+		/* write to the file */
+		numwrit = write(fdto, buf, numread);
+		/* check for error */
+		if (numwrit == -1)
+			error_check(0, -1, av);
 	}
-	if (c_wr == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d", wr);
-		exit(100);
-	}
+	clfr = close(fdfr);
+	/* check if file descriptor for read closes */
+	if (clfr == -1)
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d", fdfr), exit(100);
+	/* check if file descriptor for write closes */
+	clto = close(fdto);
+	if (clto == -1)
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d", fdto), exit(100);
 	return (0);
 }
